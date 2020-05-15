@@ -7,8 +7,8 @@ import shutil
 import random
 from imageai.Detection.Custom import DetectionModelTrainer
 
-images_path = 'resized_images/'
-labels_path = 'labels_path/'
+images_path = 'images/'
+labels_path = 'labels_csv_to_xml/'  # 'labels_path'
 train_path = 'dataset/train/'
 validation_path = 'dataset/validation/'
 
@@ -35,7 +35,7 @@ if train_test_split:
 trainer = DetectionModelTrainer()
 trainer.setModelTypeAsYOLOv3()
 trainer.setDataDirectory(data_directory="dataset/")
-trainer.setTrainConfig(object_names_array=["obj1", "obj2"],
+trainer.setTrainConfig(object_names_array=["corn", "weed"],
                        batch_size=16,
                        num_experiments=200,
                        train_from_pretrained_model="pretrained-yolov3.h5")
