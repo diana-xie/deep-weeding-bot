@@ -12,7 +12,7 @@ labels_path = 'labels_path/'
 train_path = 'dataset/train/'
 validation_path = 'dataset/validation/'
 
-train_test_split = False
+train_test_split = True
 
 if train_test_split:
     # train test validation
@@ -36,7 +36,7 @@ trainer = DetectionModelTrainer()
 trainer.setModelTypeAsYOLOv3()
 trainer.setDataDirectory(data_directory="dataset/")
 trainer.setTrainConfig(object_names_array=["obj1", "obj2"],
-                       batch_size=5,
+                       batch_size=16,
                        num_experiments=200,
                        train_from_pretrained_model="pretrained-yolov3.h5")
 trainer.trainModel()

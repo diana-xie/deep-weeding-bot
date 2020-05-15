@@ -1,3 +1,9 @@
+"""
+Tutorial: https://towardsdatascience.com/how-to-create-your-own-custom-object-detector-766cb11ccd1c
+
+Note: resizing images works, but data augmentation and bounding boxes xml has empty objects.
+"""
+
 import glob
 import pandas as pd
 import xml.etree.ElementTree as ET
@@ -9,8 +15,9 @@ import imageio
 import re
 import os
 from PIL import Image
+import shutil
 
-resize_images = False
+resize_images = True
 
 # Image augmentor
 aug = iaa.SomeOf(2, [
@@ -30,11 +37,24 @@ aug = iaa.SomeOf(2, [
 
 
 def get_resized_images():
+
     # Define here your paths
+    data_images_path = 'data/'
     original_images_path = 'images/'
     resized_images_path = 'resized_images/'
+    labels_path = 'labels_original/'
+
+    # Copy images that were labelled
+    files = glob.glob(labels_path + '/*.xml')
+    files = [re.findall(r'\d+', x)[0] for x in files]
+    files = [data_images_path + 'frame' + str(x) + '.jpg' for x in files]
+
+    for file in files:
+        shutil.copy(file, original_images_path)  # file, destination
+
     new_width = 416
     new_height = 416
+
     for image_file in os.listdir(original_images_path):
         ima = Image.open(original_images_path + image_file)
         new_ima = ima.resize((new_width, new_height), Image.ANTIALIAS)
