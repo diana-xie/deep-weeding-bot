@@ -39,10 +39,10 @@ aug = iaa.SomeOf(2, [
 def get_resized_images():
 
     # Define here your paths
-    data_images_path = 'data/'
-    original_images_path = 'images/'
+    data_images_path = '../object_detection_classification/data/'
+    original_images_path = '../object_detection_classification/images/'
     resized_images_path = 'resized_images/'
-    labels_path = 'labels_original/'
+    labels_path = '../object_detection_classification/labels_original/'
 
     # Copy images that were labelled
     files = glob.glob(labels_path + '/*.xml')
@@ -210,7 +210,7 @@ if __name__ == '__main__':
     if resize_images:
         get_resized_images()
 
-    xml_df = xml_to_csv('labels_original/')
+    xml_df = xml_to_csv('../object_detection_classification/labels_original/')
 
     for i in range(10):
         augmented_images_df = image_aug(df=xml_df,
@@ -221,6 +221,6 @@ if __name__ == '__main__':
         augmented_images_df.to_csv('aug{}_images.csv'.format(i), index=False)
         csv_to_xml(CSV_PATH='aug{}_images.csv'.format(i),
                    RESIZED_IMAGES_PATH='resized_images/',
-                   LABELS_PATH='labels_original/',
+                   LABELS_PATH='../object_detection_classification/labels_original/',
                    folder='resized_images')
         os.remove('aug{}_images.csv'.format(i))
