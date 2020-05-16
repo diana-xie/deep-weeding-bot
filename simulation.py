@@ -1,6 +1,12 @@
-""" """ """ """ """ """ """ """ """ """ """ """
-""" Perform inference & show results """
-""" """ """ """ """ """ """ """ """ """ """ """
+""" """ """ """ """ """ """ """ """ """ """
+Perform inference & show results 
+
+Adapted from  https://github.com/AlexOlsen/DeepWeeds
+“A. Olsen, D. A. Konovalov, B. Philippa, P. Ridd, J. C. Wood, J. Johns, W. Banks, B. Girgenti, O. Kenny, J. Whinney, B.
+Calvert, M. Rahimi Azghadi, and R. D. White, “DeepWeeds: A Multiclass Weed Species Image Dataset for Deep Learning,”
+Scientific Reports, vol. 9, no. 2058, 2 2019. [Online]. Available: https://doi.org/10.1038/s41598-018-38343-3 ”
+"""
+""" """ """ """ """ """ """ """ """ """ ""
 
 import pandas as pd
 from keras.models import load_model
@@ -15,7 +21,7 @@ import serial
 # Global paths
 OUTPUT_DIRECTORY = "./outputs/"
 LABEL_DIRECTORY = "./labels/"
-MODEL_DIRECTORY = "./models/"
+MODEL_DIRECTORY = "./models/"  # TODO: change to subdir
 IMG_DIRECTORY = "./images/"
 
 
