@@ -4,13 +4,6 @@ Based off https://gist.github.com/calisir/568190a5e55a79e08be318c285688457
 import pandas as pd
 import xml.etree.ElementTree as ET
 
-
-# # Change the name of the file. # This will replace the / with -
-# def nameChange(x):
-#     x = x.replace('.jpg', '')
-#     return x
-
-
 # get data
 data = pd.read_csv('all_labels.csv')
 # data['filename'] = data['filename'].apply(nameChange)  # change filename to save

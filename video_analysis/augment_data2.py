@@ -1,6 +1,9 @@
 """
 Tutorial: https://medium.com/@a.karazhay/guide-augment-images-and-multiple-bounding-boxes-for-deep-learning-in-4-steps-with-the-notebook-9b263e414dac
 Notebook: "Tutorial-Image-and-Multiple-Bounding-Boxes-Augmentation-for-Deep-Learning-in-4-Steps.ipynb"
+
+Image resize dim originally 600 x 600.
+
 """
 
 import imgaug as ia
@@ -57,12 +60,12 @@ def bbs_obj_to_df(bbs_object):
 def resize_imgaug(df, images_path, aug_images_path, image_prefix):
 
     # to resize the images we create two augmenters
-    # one is used when the image height is more than 600px and the other when the width is more than 600px
+    # one is used when the image height is more than 416px and the other when the width is more than 416px
     height_resize = iaa.Sequential([
-        iaa.Resize({"height": 600, "width": 'keep-aspect-ratio'})
+        iaa.Resize({"height": 416, "width": 'keep-aspect-ratio'})
     ])
     width_resize = iaa.Sequential([
-        iaa.Resize({"height": 'keep-aspect-ratio', "width": 600})
+        iaa.Resize({"height": 'keep-aspect-ratio', "width": 416})
     ])
 
     # create data frame which we're going to populate with augmented image info
@@ -82,8 +85,8 @@ def resize_imgaug(df, images_path, aug_images_path, image_prefix):
         # augmentors defined previously.
 
         #   If image height is greater than or equal to image width
-        #   AND greater than 600px perform resizing augmentation shrinking image height to 600px.
-        if group_df['height'].unique()[0] >= group_df['width'].unique()[0] and group_df['height'].unique()[0] > 600:
+        #   AND greater than 416px perform resizing augmentation shrinking image height to 416px.
+        if group_df['height'].unique()[0] >= group_df['width'].unique()[0] and group_df['height'].unique()[0] > 416:
             #   read the image
             image = imageio.imread(images_path + filename)
             #   get bounding boxes coordinates and write into array
@@ -109,8 +112,8 @@ def resize_imgaug(df, images_path, aug_images_path, image_prefix):
             aug_bbs_xy = pd.concat([aug_bbs_xy, aug_df])
 
         #   if image width is greater than image height
-        #   AND greater than 600px perform resizing augmentation shrinking image width to 600px
-        elif group_df['width'].unique()[0] > group_df['height'].unique()[0] and group_df['width'].unique()[0] > 600:
+        #   AND greater than 416px perform resizing augmentation shrinking image width to 416px
+        elif group_df['width'].unique()[0] > group_df['height'].unique()[0] and group_df['width'].unique()[0] > 416:
             #   read the image
             image = imageio.imread(images_path + filename)
             #   get bounding boxes coordinates and write into array
@@ -135,7 +138,7 @@ def resize_imgaug(df, images_path, aug_images_path, image_prefix):
             #   append rows to aug_bbs_xy data frame
             aug_bbs_xy = pd.concat([aug_bbs_xy, aug_df])
 
-        #     append image info without any changes if it's height and width are both less than 600px
+        #     append image info without any changes if it's height and width are both less than 416px
         else:
             aug_bbs_xy = pd.concat([aug_bbs_xy, group_df])
     # return dataframe with updated images and bounding boxes annotations
@@ -274,7 +277,7 @@ def augment_images(use_prepare_images: bool = False):
     if use_prepare_images:
         labels_df, resized_images_df = prepare_images()
     else:
-        labels_df = pd.read_csv('labels.csv')
+        # labels_df = pd.read_csv('labels.csv')
         resized_images_df = pd.read_csv('resized_images.csv')
 
     # augment images
@@ -303,7 +306,7 @@ def augment_images(use_prepare_images: bool = False):
 
 
 def main():
-    augment_images(use_prepare_images=False)
+    augment_images(use_prepare_images=True)
 
     return 0
 

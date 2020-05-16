@@ -1,11 +1,8 @@
-import cv2
-import numpy as np
-import argparse
-import time
 import os
 import shutil
 import random
 from imageai.Detection.Custom import DetectionModelTrainer
+from imageai.Detection.Custom import CustomObjectDetection
 
 images_path = 'images/'
 labels_path = 'labels_csv_to_xml/'  # 'labels_path'
@@ -32,11 +29,41 @@ if train_test_split:
         except Exception as ex:
             print("Failed for image {}: ".format(ex))
 
+"""
+Train model
+"""
+
 trainer = DetectionModelTrainer()
 trainer.setModelTypeAsYOLOv3()
 trainer.setDataDirectory(data_directory="dataset/")
 trainer.setTrainConfig(object_names_array=["corn", "weed"],
-                       batch_size=16,
+                       batch_size=2,
                        num_experiments=200,
                        train_from_pretrained_model="pretrained-yolov3.h5")
 trainer.trainModel()
+
+"""
+Evaluate model
+- evaluate how every model checkpoint performs via its mAP.
+"""
+trainer = DetectionModelTrainer()
+trainer.setModelTypeAsYOLOv3()
+trainer.setDataDirectory(data_directory="dataset")
+metrics = trainer.evaluateModel(model_path="dataset/models",
+                                json_path="dataset/json/detection_config.json",
+                                iou_threshold=0.5,
+                                object_threshold=0.9,
+                                nms_threshold=0.5)
+
+"""
+Use model for detection
+"""
+
+detector = CustomObjectDetection()
+detector.setModelTypeAsYOLOv3()
+detector.setModelPath("dataset/models/detection_model-ex-005--loss-0014.777.h5")
+detector.setJsonPath("dataset/json/detection_config.json")
+detector.loadModel()
+detections = detector.detectObjectsFromImage(input_image="test.jpg",
+                                             output_image_path="ima-detected.jpg",
+                                             minimum_percentage_probability=50)
