@@ -1,6 +1,6 @@
 # deep-weeding-bot
 
-Experimenting with YOLO v3 and v4. Detecting corn vs. weeds, as well as simulating a “robot” in the field that continuously uses this detection and triggers an action when a weed is detected.
+Experimenting with YOLO v3 and v4. Detecting corn vs. weeds, as well as simulating a “robot” in the field that combines Arduino NMEA location data with weed detection to trigger an action when a weed is detected.
 
 <img src="documentation/weed-object-detection.gif?raw=true" width="500px">
 
@@ -11,6 +11,7 @@ Experimenting with YOLO v3 and v4. Detecting corn vs. weeds, as well as simulati
   * [How to create your own Custom Object Detector](https://towardsdatascience.com/how-to-create-your-own-custom-object-detector-766cb11ccd1c)
   * [Learn to Augment Images and Multiple Bounding Boxes](https://medium.com/@a.karazhay/guide-augment-images-and-multiple-bounding-boxes-for-deep-learning-in-4-steps-with-the-notebook-9b263e414dac)
   * [xmlAnnotation](https://gist.github.com/calisir/568190a5e55a79e08be318c285688457)
+  * [Arduino-Python interface](https://learn.adafruit.com/adafruit-ultimate-gps/circuitpython-parsing)
 
 # Overview
 
