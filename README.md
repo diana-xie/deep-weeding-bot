@@ -2,7 +2,9 @@
 
 Experimenting with YOLO v3 and v4. Detecting corn vs. weeds, as well as simulating a “robot” in the field that combines Arduino NMEA location data with weed detection to trigger an action when a weed is detected.
 
-<img src="documentation/weed-object-detection.gif?raw=true" width="500px">
+See Medium article on some mAP and cost analysis I did: [link](https://medium.com/@dianaxie/evaluating-map-for-an-object-detection-agribot-3e7bcb52623b?source=friends_link&sk=7597fe77cdda033cca4a125b26bc7187)
+
+<img src="documentation/weed-object-detection-gif.gif?raw=true" width="500px">
 
 - Libraries used: 
   * Training & implementing YOLO v3: [ImageAI](https://imageai.readthedocs.io/en/latest/customdetection/)
