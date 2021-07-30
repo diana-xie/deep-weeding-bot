@@ -6,6 +6,7 @@ See Medium article on some mAP and cost analysis I did: [link](https://medium.co
 
 <img src="documentation/weed-object-detection-gif.gif?raw=true" width="500px">
 
+- Adapted Yolov3 code: [https://github.com/diana-xie/darknet_yolo](https://github.com/diana-xie/darknet_yolo)
 - Libraries used: 
   * Training & implementing YOLO v3: [ImageAI](https://imageai.readthedocs.io/en/latest/customdetection/)
   * Labelling images: [labelImg](https://github.com/tzutalin/labelImg)
